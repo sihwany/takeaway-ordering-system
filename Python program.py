@@ -17,3 +17,10 @@ MENU_ITEMS = {
     "Chips": 9.99,
     "Hotdog": 6.90
 }
+
+# Combo deal details.
+COMBO_DEAL = {
+    "name": "Burger Combo (Chicken Burger + Chips)",
+    "items": ["Chicken Burger", "Chips"],
+    "price": 25.00
+}
