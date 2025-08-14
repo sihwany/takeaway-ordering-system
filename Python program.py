@@ -11,17 +11,17 @@ menu = [
     ["Sides", "Hotdog", 6.90]
 ]
 
-# Combo-eligible items
+# Combo items
 combo_items = ["Honey Soy Chicken", "Fried Chicken", "Hot Spicy Chicken", "Soy Garlic Chicken"]
 
 
-# Display menu with numbers
+# Displaying menu with numbers
 def display_menu():
     print("Menu:")
     for i, item in enumerate(menu, 1):
         print(f"  {i}. {item[1]}: ${item[2]:.2f}")
 
-# Calculate total price
+# Calculating total price
 def calculate_total(order):
     total = 0
     for item in order:
@@ -32,7 +32,7 @@ def calculate_total(order):
 order = []
 display_menu()
 
-# Ask if user wants to order
+# Asking if user the wants to order or not
 while True:
     order_choice = input("\nWould you like to order (Y or N)? ").strip().lower()
     if order_choice in ['y', 'n']:
@@ -41,7 +41,7 @@ while True:
 
 if order_choice == 'y':
     while True:
-        # Get item number
+        # Getting item number
         item_input = input("Enter the item number: ").strip()
         if not item_input.isdigit():
             print("Please enter a valid item number.")
@@ -58,21 +58,21 @@ if order_choice == 'y':
             continue
         num = int(num)
 
-        # Add item to order
+        # Adding item to order
         menu_item = menu[item_num - 1]
         order.append([menu_item[1], menu_item[2], num])
 
-        # Check for combo offer
+        # Checking if the user wants combo deal
         if menu_item[1] in combo_items:
             while True:
-                combo = input(f"Would you add chips for $5 to make a combo deal for '{menu_item[1]}'? (Y/N): ").strip().lower()
+                combo = input(f"Would you add chips for $4.99 to make a combo deal for '{menu_item[1]}'? (Y/N): ").strip().lower()
                 if combo in ['y', 'n']:
                     break
                 print("Please answer in Y or N")
             if combo == 'y':
-                order.append(["Chips (Combo)", 5.00, num])
+                order.append(["Chips (Combo)", 4.99, num])
 
-        # Ask if user wants more
+        # Asking if user the wants order more or not
         while True:
             more = input("Would you like to order more? (Y or N): ").strip().lower()
             if more in ['y', 'n']:
