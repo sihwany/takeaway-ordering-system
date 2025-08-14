@@ -15,7 +15,7 @@ menu = [
 combo_items = ["Honey Soy Chicken", "Fried Chicken", "Hot Spicy Chicken", "Soy Garlic Chicken"]
 
 
-# Displaying menu with numbers
+# Displaying menus with number
 def display_menu():
     print("Menu:")
     for i, item in enumerate(menu, 1):
@@ -32,7 +32,7 @@ def calculate_total(order):
 order = []
 display_menu()
 
-# Asking if user the wants to order or not
+# Asking if the user wants to order or not
 while True:
     order_choice = input("\nWould you like to order (Y or N)? ").strip().lower()
     if order_choice in ['y', 'n']:
@@ -72,7 +72,7 @@ if order_choice == 'y':
             if combo == 'y':
                 order.append(["Chips (Combo)", 4.99, num])
 
-        # Asking if user the wants order more or not
+        # Asking if the user wants order more or not
         while True:
             more = input("Would you like to order more? (Y or N): ").strip().lower()
             if more in ['y', 'n']:
