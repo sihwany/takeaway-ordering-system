@@ -11,60 +11,83 @@ menu = [
     ["Sides", "Hotdog", 6.90]
 ]
 
+# Combo-eligible items
+combo_items = ["Honey Soy Chicken", "Fried Chicken", "Hot Spicy Chicken", "Soy Garlic Chicken"]
+
+
 # Display menu with numbers
 def display_menu():
     print("Menu:")
     for i, item in enumerate(menu, 1):
         print(f"  {i}. {item[1]}: ${item[2]:.2f}")
 
-# Calculate total
+# Calculate total price
 def calculate_total(order):
     total = 0
     for item in order:
-        total += item[1] * item[2]  # price * quantity
+        total += item[1] * item[2] 
     return total
 
 # Main program
 order = []
-display_menu()  # Show menu once
+display_menu()
 
-# Combo-eligible items
-combo_items = ["Honey Soy Chicken", "Fried Chicken", "Hot Spicy Chicken", "Soy Garlic Chicken"]
-
+# Ask if user wants to order
 while True:
-    item_input = input("\nEnter item number or 'done': ").strip().lower()
-    if item_input == 'done':
+    order_choice = input("\nWould you like to order (Y or N)? ").strip().lower()
+    if order_choice in ['y', 'n']:
         break
+    print("Please answer in Y or N")
 
-    # Check if input is a valid number
-    if not item_input.isdigit():  # CHANGED: Moved check to prompt for re-entry
-        print("Please enter correct item number.")  # ADDED: Error message
-        continue
-    item_num = int(item_input)
-    if item_num < 1 or item_num > len(menu):
-        print("Please enter correct item number.")  # ADDED: Error message for out-of-range
-        continue
+if order_choice == 'y':
+    while True:
+        # Get item number
+        item_input = input("Enter the item number: ").strip()
+        if not item_input.isdigit():
+            print("Please enter a valid item number.")
+            continue
 
-    qty = input("Enter quantity: ").strip()
-    if not qty.isdigit() or int(qty) <= 0:
-        continue
-    qty = int(qty)
+        item_num = int(item_input)
+        if item_num < 1 or item_num > len(menu):
+            print("Please enter a valid item number.")
+            continue
 
-    # Get item from menu (adjust index for 1-based input)
-    menu_item = menu[item_num - 1]
-    order.append([menu_item[1], menu_item[2], qty])
-    
-    # Combo deal for specific items
-    if menu_item[1] in combo_items:
-        combo = input(f"Would you add chips for $5 to make a combo deal for '{menu_item[1]}'? (y/n): ").strip().lower()
-        if combo == 'y':
-            order.append(["Chips (Combo)", 5.00, qty])
+        num = input("Enter quantity: ").strip()
+        if not num.isdigit() or int(num) <= 0:
+            print("Please enter a valid quantity.")
+            continue
+        num = int(num)
 
-# Show order
+        # Add item to order
+        menu_item = menu[item_num - 1]
+        order.append([menu_item[1], menu_item[2], num])
+
+        # Check for combo offer
+        if menu_item[1] in combo_items:
+            while True:
+                combo = input(f"Would you add chips for $5 to make a combo deal for '{menu_item[1]}'? (Y/N): ").strip().lower()
+                if combo in ['y', 'n']:
+                    break
+                print("Please answer in Y or N")
+            if combo == 'y':
+                order.append(["Chips (Combo)", 5.00, num])
+
+        # Ask if user wants more
+        while True:
+            more = input("Would you like to order more? (Y or N): ").strip().lower()
+            if more in ['y', 'n']:
+                break
+            print("Please answer in Y or N")
+        if more == 'n':
+            break
+
+
+# Showing order
 if order:
     print("\nYour Order:")
     for item in order:
         print(f"{item[0]} x {item[2]}: ${item[1] * item[2]:.2f}")
     print(f"Total: ${calculate_total(order):.2f}")
+    print(f"Thanks for ordering in our store!")
 else:
     print("No items ordered.")
